@@ -1,8 +1,9 @@
 <template>
-  <div :style="{
-    height: this.height,
-    width: this.width
-  }">
+  <v-card
+    :height="height"
+    :width="width"
+    elevation="0"
+  >
     <l-map
         ref="map"
         :zoom="zoom"
@@ -19,7 +20,7 @@
           layer-type="base"
       />
     </l-map>
-  </div>
+  </v-card>
 </template>
 <script lang="ts">
   import Vue from 'vue'
@@ -107,7 +108,7 @@
     }
 
     private showMe(id: string) {
-      this.$router.push("/chartdemo/" + id);
+      this.$router.push("/zaehlstelledemo/" + id);
     }
 
     get center() {

@@ -102,13 +102,11 @@
       </v-footer>
     </v-navigation-drawer>
     -->
-    <v-content class="main">
-      <v-container fluid fill-height class="pa-0">
+    <v-main>
         <v-fade-transition mode="out-in">
           <router-view></router-view>
         </v-fade-transition>
-      </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

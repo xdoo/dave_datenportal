@@ -61,6 +61,22 @@ export default new Router({
         title: "Chart Demo"
       }
     },
+    {
+      path: '/zaehlungerstellen/:id',
+      name: 'zaehlungerstellen',
+      component: () => import(/* webpackChunkName: "zaehlungerstellen" */ '@/views/ZaehlungErstellenView.vue'),
+      meta: {
+        title: "Zaehlung erstellen"
+      }
+    },
+    {
+      path: '/zaehlstelledemo/:id',
+      name: 'zaehlstelledemo',
+      component: () => import(/* webpackChunkName: "zaehlstelledemo" */ '@/views/ZaehlstelleDemoView.vue'),
+      meta: {
+        title: "Zaehlung erstellen"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });

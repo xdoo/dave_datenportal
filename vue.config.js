@@ -4,5 +4,5 @@ module.exports = {
         'vue-echarts',
         'resize-detector'
     ],
-    publicPath: '/dave_uploadportal/'
+    publicPath: '/dave_datenportal/'
 };

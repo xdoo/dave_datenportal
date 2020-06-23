@@ -1,10 +1,17 @@
 <template>
-  <v-container class="ma-4">
-    <v-row>
-      <h1 class="heading-4 text-truncate">{{counter.counter}}</h1>
+  <v-container>
+    <v-row cols="12">
+      <dummy-map
+        :zoom="14"
+        :selected-marker-id="counterId"
+        height="200px"
+      ></dummy-map>
     </v-row>
     <v-row>
-      <span class="font-weight-thin body-2">Stadtbezirk {{counter.districtNumber}}, {{counter.district}} <br/> Lat {{counter.lat}}, Lng {{counter.lng}} | Nr. 4711</span>
+      <h1 class="heading-4 px-4 text-truncate">Nr. {{counter.id}} | {{counter.counter}}</h1>
+    </v-row>
+    <v-row>
+      <span class="font-weight-thin px-4 body-2">Stadtbezirk {{counter.districtNumber}}, {{counter.district}} | Lat {{counter.lat}}, Lng {{counter.lng}}</span>
     </v-row>
   </v-container>
 </template>
@@ -12,9 +19,17 @@
 import Vue from 'vue'
 import { Component, Prop } from "vue-property-decorator"
 
+// services
 import CounterService from "@/services/CounterService"
 
-@Component
+// components
+import DummyMap from "@/components/map/DummyMap.vue"
+
+@Component({
+  components: {
+    DummyMap
+  }
+})
 export default class ZaehlstelleHeader extends Vue {
 
   @Prop() readonly counterId!: string
