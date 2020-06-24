@@ -2,21 +2,17 @@
   <v-card
     width="100%"
     elevation="0"
-    class="mx-3 pb-10"
+    class="pb-10"
   >
-    <v-row>
-      <dummy-map
+    <dummy-map
         :zoom="14"
         :selected-marker-id="counterId"
         height="200px"
-      ></dummy-map>
-    </v-row>
-    <v-row>
+    ></dummy-map>
+    <v-sheet>
       <h1 class="heading-4 px-4 text-truncate">Nr. {{counter.id}} | {{counter.counter}}</h1>
-    </v-row>
-    <v-row>
       <span class="font-weight-thin px-4 body-2">Stadtbezirk {{counter.districtNumber}}, {{counter.district}} | Lat {{counter.lat}}, Lng {{counter.lng}}</span>
-    </v-row>
+    </v-sheet>
   </v-card>
 </template>
 <script lang="ts">

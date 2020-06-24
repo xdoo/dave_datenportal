@@ -4,8 +4,8 @@
     elevation="0"
   >
     <zaehlstelle-header
-        :counter-id="counterId"
-      ></zaehlstelle-header>
+      :counter-id="counterId"
+    ></zaehlstelle-header>
       foo
   </v-card>
 </template>
