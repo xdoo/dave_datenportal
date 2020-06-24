@@ -1,14 +1,13 @@
 <template>
-  <v-container>
-    <v-row>
-      <zaehlstelle-header
+  <v-card
+    width="100%"
+    elevation="0"
+  >
+    <zaehlstelle-header
         :counter-id="counterId"
       ></zaehlstelle-header>
-    </v-row>
-    <v-row>
-      Foo
-    </v-row>
-  </v-container>
+      foo
+  </v-card>
 </template>
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator'
