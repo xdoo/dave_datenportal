@@ -246,7 +246,7 @@
     fab
     bottom
     right
-    color="pink"
+    color="secondary"
   >
     <v-icon>mdi-calendar-plus</v-icon>
   </v-btn>

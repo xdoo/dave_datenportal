@@ -16,13 +16,9 @@
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
 
       <router-link to="/">
-        <v-toolbar-title class="font-weight-bold">
-          <span class="secondary--text" style="font-size: x-large">D</span>
-          <span class="white--text" style="font-size: medium">atenbank und </span>
-          <span class="secondary--text" style="font-size: x-large">A</span>
-          <span class="white--text" style="font-size: medium">uswertungen von </span>
-          <span class="secondary--text" style="font-size: x-large">Ve</span>
-          <span class="white--text" style="font-size: medium">rkehrszählungen</span>
+        <v-toolbar-title class="white--text">
+          <span class="font-weight-black">DAVe</span>
+          <span class="font-weight-thin"> | Planungsreferat</span>
         </v-toolbar-title>
 
       </router-link>
