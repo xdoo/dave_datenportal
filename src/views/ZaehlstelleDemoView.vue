@@ -15,7 +15,7 @@
       prepend-inner-icon="mdi-filter-variant"
       outlined
     ></v-text-field>
-    <v-list two-line subheader nav>
+    <v-list two-line subheader nav class="pb-10">
       <v-subheader inset>Zählungen in Bearbeitung</v-subheader>
       <v-list-item
         to="foo"
@@ -33,7 +33,7 @@
 
         <v-list-item-action>
           <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
+            <v-icon color="grey lighten-1">mdi-email-send-outline</v-icon>
           </v-btn>
         </v-list-item-action>
       </v-list-item>
@@ -52,9 +52,6 @@
         </v-list-item-content>
 
         <v-list-item-action>
-          <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
-          </v-btn>
         </v-list-item-action>
       </v-list-item>
       <v-list-item
@@ -73,7 +70,7 @@
 
         <v-list-item-action>
           <v-btn icon>
-            <v-icon color="grey lighten-1">mdi-information</v-icon>
+            <v-icon color="grey lighten-1">mdi-earth-plus</v-icon>
           </v-btn>
         </v-list-item-action>
       </v-list-item>
