@@ -239,8 +239,17 @@
         </v-list-item-action>
       </v-list-item>
     </v-list>
-
   </v-card>
+  <v-btn
+    fixed
+    dark
+    fab
+    bottom
+    right
+    color="pink"
+  >
+    <v-icon>mdi-calendar-plus</v-icon>
+  </v-btn>
 </div>
 </template>
 <script lang="ts">
