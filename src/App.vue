@@ -69,35 +69,21 @@
       </v-autocomplete>
 
       <v-spacer></v-spacer>
+      <v-btn
+        icon
+        class="mr-4"
+        to="/todolist"
+      >
+        <v-badge
+          overlap
+          color="secondary"
+          content="3"
+        >
+          <v-icon>mdi-clipboard-list-outline</v-icon>
+        </v-badge>
+      </v-btn>
       <span> {{ this.loggedInUser }} </span>
     </v-app-bar>
-    <!--<v-navigation-drawer app clipped v-model="drawer">
-      <v-list dense>
-        <v-list-item :to="{path: '/zaehlstelleoverview'}">
-          <v-list-item-action>
-            <v-icon>mdi-map-marker-multiple-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Zählstellen</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :to="{path: '/chartdemo'}">
-          <v-list-item-action>
-            <v-icon>mdi-google-downasaur</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>Chart Demo</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <v-footer absolute>
-        <v-col class="text-center">
-          <div style="font-size: small">Backend - {{ backendVersion }}</div>
-          <div style="font-size: small">Frontend - {{ frontendVersion }}</div>
-        </v-col>
-      </v-footer>
-    </v-navigation-drawer>
-    -->
     <v-main>
         <v-fade-transition mode="out-in">
           <router-view></router-view>
