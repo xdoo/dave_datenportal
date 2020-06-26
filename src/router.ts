@@ -77,6 +77,14 @@ export default new Router({
         title: "Zaehlung erstellen"
       }
     },
+    {
+      path: '/todolist',
+      name: 'todolist',
+      component: () => import(/* webpackChunkName: "todolist" */ '@/views/TodoView.vue'),
+      meta: {
+        title: "Todo List"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });

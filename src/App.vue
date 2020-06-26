@@ -72,6 +72,7 @@
       <v-btn
         icon
         class="mr-4"
+        to="/todolist"
       >
         <v-badge
           overlap
