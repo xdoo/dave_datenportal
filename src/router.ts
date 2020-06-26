@@ -85,6 +85,14 @@ export default new Router({
         title: "Todo List"
       }
     },
+    {
+      path: '/countinfo',
+      name: 'countinfo',
+      component: () => import(/* webpackChunkName: "countinfo" */ '@/views/CountInfoView.vue'),
+      meta: {
+        title: "Info zur Zählung"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });

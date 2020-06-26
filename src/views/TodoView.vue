@@ -114,7 +114,7 @@
       <v-divider inset></v-divider>
       <v-subheader inset>beauftragte Zählungen</v-subheader>
       <v-list-item
-        to="foo"
+        to="/countinfo"
       >
         <v-list-item-avatar
           color="red lighten-4"
