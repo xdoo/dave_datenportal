@@ -1,6 +1,8 @@
 <template>
   <v-container
     fluid
+    fill-height
+    class="pa-0"
   >
     <dummy-map
         height="100%"
