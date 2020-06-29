@@ -109,6 +109,14 @@ export default new Router({
         title: "Informationen zur Zählung"
       }
     },
+    {
+      path: '/upload/countupload',
+      name: 'upload_countupload',
+      component: () => import(/* webpackChunkName: "upload_countupload" */ '@/views/upload/UploadCountView.vue'),
+      meta: {
+        title: "Daten zur Zählung hochladen"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });

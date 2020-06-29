@@ -133,7 +133,7 @@
       <v-divider inset></v-divider>
       <v-subheader inset>abgeschlossene Zählungen</v-subheader>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countupload', query: { mode: 'upload'}}"
       >
         <v-list-item-avatar
           color="light-green lighten-4"
@@ -156,7 +156,7 @@
         </v-list-item-action>
       </v-list-item>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countupload', query: { mode: 'upload'}}"
       >
         <v-list-item-avatar
           color="light-green lighten-4"
