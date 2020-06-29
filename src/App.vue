@@ -18,7 +18,8 @@
       <router-link to="/" style="text-decoration: none;">
         <v-toolbar-title class="white--text">
           <span class="font-weight-black">DAVe</span>
-          <span class="font-weight-thin"> | Planungsreferat</span>
+          <span v-if="!uploadmode" class="font-weight-thin"> | Planungsreferat</span>
+          <span v-if="uploadmode" class="font-weight-thin"> | Upload Portal</span>
         </v-toolbar-title>
 
       </router-link>
@@ -74,6 +75,7 @@
         icon
         class="mr-4"
         to="/todolist"
+        v-if="!uploadmode"
       >
         <v-badge
           overlap
@@ -87,6 +89,7 @@
         icon
         class="mr-4"
         :to="{ name: 'upload_todolist', query: { mode: 'upload' }}"
+        v-if="!uploadmode"
       >
         <v-icon>mdi-shoe-print</v-icon>
       </v-btn>
