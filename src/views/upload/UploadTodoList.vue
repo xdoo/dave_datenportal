@@ -108,7 +108,7 @@
       <v-divider inset></v-divider>
       <v-subheader inset>gestartete Zählungen</v-subheader>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload'}}"
       >
         <v-list-item-avatar
           color="light-green lighten-4"
@@ -125,6 +125,7 @@
           <v-btn 
             icon
             title="Daten hochladen"
+            :to="{name: 'upload_countupload', query: { mode: 'upload'}}"
           >
             <v-icon color="grey lighten-1">mdi-database-sync</v-icon>
           </v-btn>

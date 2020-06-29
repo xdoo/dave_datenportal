@@ -91,7 +91,15 @@
         :to="{ name: 'upload_todolist', query: { mode: 'upload' }}"
         v-if="!uploadmode"
       >
-        <v-icon>mdi-shoe-print</v-icon>
+        <v-icon>mdi-flower-tulip</v-icon>
+      </v-btn>
+      <v-btn
+        icon
+        class="mr-4"
+        :to="{ name: 'home'}"
+        v-if="uploadmode"
+      >
+        <v-icon>mdi-duck</v-icon>
       </v-btn>
       <span v-if="uploadmode"> Schuh & Co</span>
       <span v-if="!uploadmode"> {{ this.loggedInUser }} </span>
