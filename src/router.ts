@@ -56,7 +56,7 @@ export default new Router({
     {
       path: '/chartdemo/:id',
       name: 'chartdemo',
-      component: () => import(/* webpackChunkName: "chartdemo" */ '@/views/ChartDemoView.vue'),
+      component: () => import( '@/views/ChartDemoView.vue'),
       meta: {
         title: "Chart Demo"
       }
@@ -64,7 +64,7 @@ export default new Router({
     {
       path: '/zaehlungerstellen/:id',
       name: 'zaehlungerstellen',
-      component: () => import(/* webpackChunkName: "zaehlungerstellen" */ '@/views/ZaehlungErstellenView.vue'),
+      component: () => import( '@/views/ZaehlungErstellenView.vue'),
       meta: {
         title: "Zaehlung erstellen"
       }
@@ -72,7 +72,7 @@ export default new Router({
     {
       path: '/zaehlstelledemo/:id',
       name: 'zaehlstelledemo',
-      component: () => import(/* webpackChunkName: "zaehlstelledemo" */ '@/views/ZaehlstelleDemoView.vue'),
+      component: () => import( '@/views/ZaehlstelleDemoView.vue'),
       meta: {
         title: "Zaehlung erstellen"
       }
@@ -80,7 +80,7 @@ export default new Router({
     {
       path: '/todolist',
       name: 'todolist',
-      component: () => import(/* webpackChunkName: "todolist" */ '@/views/TodoView.vue'),
+      component: () => import( '@/views/TodoView.vue'),
       meta: {
         title: "Todo List"
       }
@@ -88,9 +88,33 @@ export default new Router({
     {
       path: '/countinfo',
       name: 'countinfo',
-      component: () => import(/* webpackChunkName: "countinfo" */ '@/views/CountInfoView.vue'),
+      component: () => import( '@/views/CountInfoView.vue'),
       meta: {
         title: "Info zur Zählung"
+      }
+    },
+    {
+      path: '/upload/todolist',
+      name: 'upload_todolist',
+      component: () => import( '@/views/upload/UploadTodoList.vue'),
+      meta: {
+        title: "Todo List für den Zähler"
+      }
+    },
+    {
+      path: '/upload/countinfo',
+      name: 'upload_countinfo',
+      component: () => import( '@/views/upload/UploadCountInfoView.vue'),
+      meta: {
+        title: "Informationen zur Zählung"
+      }
+    },
+    {
+      path: '/upload/countupload',
+      name: 'upload_countupload',
+      component: () => import( '@/views/upload/UploadCountView.vue'),
+      meta: {
+        title: "Daten zur Zählung hochladen"
       }
     },
     {path: '*', redirect: '/'} //Fallback 2
