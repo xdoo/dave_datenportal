@@ -12,7 +12,7 @@
       
       <v-subheader inset>Zählungen zur Korrektur</v-subheader>
       <v-list-item
-        :to="{name: 'upload_countinfo', query: { mode: 'upload' }}"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload', message: 'error' }}"
       >
         <v-list-item-avatar
           color="red lighten-4"
