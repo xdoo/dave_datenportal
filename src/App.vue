@@ -15,7 +15,7 @@
     <v-app-bar app clipped-left dark :color="appbarcolor">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
 
-      <router-link to="/" style="text-decoration: none;">
+      <router-link :to="uploadmode ? { name: 'upload_todolist', query: { mode: 'upload' }} : 'home'" style="text-decoration: none;">
         <v-toolbar-title class="white--text">
           <span class="font-weight-black">DAVe</span>
           <span v-if="!uploadmode" class="font-weight-thin"> | Planungsreferat</span>

@@ -101,6 +101,14 @@ export default new Router({
         title: "Todo List für den Zähler"
       }
     },
+    {
+      path: '/upload/countinfo',
+      name: 'upload_countinfo',
+      component: () => import(/* webpackChunkName: "upload_countinfo" */ '@/views/upload/UploadCountInfoView.vue'),
+      meta: {
+        title: "Informationen zur Zählung"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });

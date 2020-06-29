@@ -12,7 +12,7 @@
       
       <v-subheader inset>Zählungen zur Korrektur</v-subheader>
       <v-list-item
-        to="/countinfo"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload' }}"
       >
         <v-list-item-avatar
           color="red lighten-4"
@@ -37,7 +37,7 @@
       <v-divider inset></v-divider>
       <v-subheader inset>beauftragte Zählungen</v-subheader>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload'}}"
       > 
         <v-list-item-avatar
           color="blue lighten-4"
@@ -60,7 +60,7 @@
         </v-list-item-action>
       </v-list-item>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload'}}"
       >
         <v-list-item-avatar
           color="blue lighten-4"
@@ -83,7 +83,7 @@
         </v-list-item-action>
       </v-list-item>
       <v-list-item
-        to="foo"
+        :to="{name: 'upload_countinfo', query: { mode: 'upload'}}"
       >
         <v-list-item-avatar
           color="blue lighten-4"
