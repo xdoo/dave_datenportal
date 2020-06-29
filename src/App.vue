@@ -12,10 +12,10 @@
       <v-spacer/>
     </v-overlay>
     <TheSnackbar/>
-    <v-app-bar app clipped-left dark color="primary">
+    <v-app-bar app clipped-left dark :color="appbarcolor">
       <!-- <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon> -->
 
-      <router-link to="/">
+      <router-link to="/" style="text-decoration: none;">
         <v-toolbar-title class="white--text">
           <span class="font-weight-black">DAVe</span>
           <span class="font-weight-thin"> | Planungsreferat</span>
@@ -29,19 +29,20 @@
             -->
 
       <v-autocomplete
-          id="suchfeld"
-          flat
-          solo-inverted
-          dense
-          hide-details
-          label="Schnellsuche"
-          clearable
-          v-model="searchQuery"
-          prepend-inner-icon="mdi-magnify"
-          @keyup.enter="quickSearch"
-          color="black"
-          :items="suggests"
-          return-object
+        v-if="!uploadmode"
+        id="suchfeld"
+        flat
+        solo-inverted
+        dense
+        hide-details
+        label="Schnellsuche"
+        clearable
+        v-model="searchQuery"
+        prepend-inner-icon="mdi-magnify"
+        @keyup.enter="quickSearch"
+        color="black"
+        :items="suggests"
+        return-object
       >
         <template v-slot:no-data>
           <v-list class="pa-3">
@@ -82,7 +83,15 @@
           <v-icon>mdi-clipboard-list-outline</v-icon>
         </v-badge>
       </v-btn>
-      <span> {{ this.loggedInUser }} </span>
+      <v-btn
+        icon
+        class="mr-4"
+        :to="{ name: 'upload_todolist', query: { mode: 'upload' }}"
+      >
+        <v-icon>mdi-shoe-print</v-icon>
+      </v-btn>
+      <span v-if="uploadmode"> Schuh & Co</span>
+      <span v-if="!uploadmode"> {{ this.loggedInUser }} </span>
     </v-app-bar>
     <v-main>
         <v-fade-transition mode="out-in">
@@ -139,6 +148,22 @@
         this.hasUserRelevantRole().then((hasRelevantRole: boolean) => {
           this.hasRelevantRole = hasRelevantRole;
         })
+      }
+    }
+
+    get uploadmode() {
+      if(this.$route.query.mode === "upload") {
+        return true
+      } else {
+        return false
+      }
+    }
+
+    get appbarcolor () {
+      if(this.uploadmode) {
+        return "orange"
+      } else {
+        return "primary"
       }
     }
 

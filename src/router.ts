@@ -93,6 +93,14 @@ export default new Router({
         title: "Info zur Zählung"
       }
     },
+    {
+      path: '/upload/todolist',
+      name: 'upload_todolist',
+      component: () => import(/* webpackChunkName: "upload_todolist" */ '@/views/upload/UploadTodoList.vue'),
+      meta: {
+        title: "Todo List für den Zähler"
+      }
+    },
     {path: '*', redirect: '/'} //Fallback 2
   ]
 });
