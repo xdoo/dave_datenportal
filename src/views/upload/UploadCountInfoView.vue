@@ -74,7 +74,7 @@
         value="tab-2"
       >
         <v-card flat height="350px">
-          <v-card-title>Fahrzeuge</v-card-title>
+          <v-card-title><h2 class="font-weight-thin">Fahrzeuge</h2></v-card-title>
           <v-card-text></v-card-text>
         </v-card>
       </v-tab-item>
@@ -83,7 +83,7 @@
         value="tab-3"
       >
         <v-card flat height="350px">
-          <v-card-title>Knoten & Richtungen</v-card-title>
+          <v-card-title><h2 class="font-weight-thin">Knoten & Richtungen</h2></v-card-title>
           <v-card-text></v-card-text>
         </v-card>
       </v-tab-item>
@@ -92,7 +92,7 @@
         value="tab-4"
       >
         <v-card flat height="350px">
-          <v-card-title>Kontakt</v-card-title>
+          <v-card-title><h2 class="font-weight-thin">Kontakt</h2></v-card-title>
           <v-card-text></v-card-text>
         </v-card>
       </v-tab-item>
