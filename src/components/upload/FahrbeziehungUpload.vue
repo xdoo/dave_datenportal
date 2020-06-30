@@ -1,18 +1,31 @@
 <template>
-  <div>
-<!--  <v-container fluid>-->
+    <div>
     <v-file-input outlined dense prepend-inner-icon="$file" prepend-icon="" accept=".csv" label="File input" @change="onFileSelect" />
 
-    <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="300" v-if="isFileSelected">
-    <heatmap
-        :data="data"
-        name="name"
-        :categories="categories"
-        :hours="hours"
-        rangeMax="250"
-    ></heatmap>
+    <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="350" v-if="isFileSelected">
+      <v-chart
+          :options="optionsHeatmap"
+          autoresize/>
     </v-sheet>
-    <list v-if="isFileSelected"/>
+
+    <v-data-table v-if="isFileSelected"
+        :headers="headersDatatable"
+        :items="itemsDatatable"
+        dense
+        fixed-header
+        loading-text="Lade Daten....."
+        :items-per-page="4"
+        :footer-props="{
+          disableItemsPerPage: true,
+          showFirstLastPage: true,
+          showCurrentPage: true,
+          itemsPerPageOptions: [4, 8, 16],
+        }"
+    >
+      <template v-slot:no-data>
+        ⚠ Keine Ergebnisse gefunden.
+      </template>
+    </v-data-table>
 
     <v-textarea
         label="Kommentar"
@@ -21,136 +34,213 @@
         counter="1000"
         maxlength="1000"
     ></v-textarea>
-<!--  </v-container>-->
-  </div>
+    </div>
 </template>
 
 <script lang="ts">
-  import {Component, Ref, Vue} from 'vue-property-decorator';
+  import {Component, Prop, Vue} from 'vue-property-decorator';
   import {Levels} from "@/api/error";
+
+  // chart
+  import 'echarts/lib/chart/heatmap'
+  import 'echarts/lib/component/tooltip'
+  import 'echarts/lib/component/grid'
+  import 'echarts/lib/component/visualMap'
+
+  // eslint-disable-next-line no-unused-vars
+  import ZeitintervallObject from "@/components/charts/ZeitintervallObject";
   import Heatmap from "@/components/charts/Heatmap.vue";
-  import List from "@/components/charts/List.vue";
+
   @Component({
-    components: {List, Heatmap}
+    components: {Heatmap}
   })
   export default class ZaehlstelleSearch extends Vue {
 
     private fileData: string[] = [];
 
-    @Ref('heatmap') readonly heatmap!: Heatmap
-
-    data: number [][] = this.dataEreignis;
+    // Heatmap
+    @Prop({default: 0}) readonly rangeMin!: number
+    @Prop({default: 250}) readonly rangeMax!: number
+    data: number [][] = this.dataHeatmap;
 
     mounted() {
       window.scrollTo(0, 0);
     }
 
+    get isFileSelected() {
+      return true;
+      // return this.fileData.length > 0;
+    }
+
+    // Heatmap
+    get optionsHeatmap () {
+      return {
+        tooltip: {
+          position: 'top'
+        },
+        animation: false,
+        grid: {
+          height: '25%',
+          top: '5%',
+          width: '85%'
+        },
+        xAxis: {
+          type: 'category',
+          data: this.hours,
+          splitArea: {
+            show: true
+          }
+        },
+        yAxis: {
+          type: 'category',
+          data: this.categories,
+          splitArea: {
+            show: true
+          }
+        },
+        visualMap: {
+          min: this.rangeMin,
+          max: this.rangeMax,
+          calculable: true,
+          orient: 'horizontal',
+          left: 'center',
+          bottom: '40%',
+          inRange: {
+            color: this.color
+          }
+        },
+        series: [{
+          name: 'Heatmapname',
+          type: 'heatmap',
+          data: this.dataHeatmap,
+          label: {
+            show: false
+          },
+          markPoint: {
+            label: {
+              show: false
+            }
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
+          }
+        }]
+      }
+    }
+
+    get color() {
+      return this.rangeMin < 0 ? ['#4575b4', '#d88273', '#bf444c'] : ['#f6efa6', '#d88273', '#bf444c']
+    }
+
     get categories() {
-      return ['Gesamt','Schwerverkehr','Güterverkehr','PKW']
+      return ['Gesamt','SV','GV','KFZ']
     }
 
     get hours() {
       return [
-        '0.1',
-        '0.2',
-        '0.3',
-        '0.4',
-        '1.1',
-        '1.2',
-        '1.3',
-        '1.4',
-        '2.1',
-        '2.2',
-        '2.3',
-        '2.4',
-        '3.1',
-        '3.2',
-        '3.3',
-        '3.4',
-        '4.1',
-        '4.2',
-        '4.3',
-        '4.4',
-        '5.1',
-        '5.2',
-        '5.3',
-        '5.4',
-        '6.1',
-        '6.2',
-        '6.3',
-        '6.4',
-        '7.1',
-        '7.2',
-        '7.3',
-        '7.4',
-        '8.1',
-        '8.2',
-        '8.3',
-        '8.4',
-        '9.1',
-        '9.2',
-        '9.3',
-        '9.4',
-        '10.1',
-        '10.2',
-        '10.3',
-        '10.4',
-        '11.1',
-        '11.2',
-        '11.3',
-        '11.4',
-        '12.1',
-        '12.2',
-        '12.3',
-        '12.4',
-        '13.1',
-        '13.2',
-        '13.3',
-        '13.4',
-        '14.1',
-        '14.2',
-        '14.3',
-        '14.4',
-        '15.1',
-        '15.2',
-        '15.3',
-        '15.4',
-        '16.1',
-        '16.2',
-        '16.3',
-        '16.4',
-        '17.1',
-        '17.2',
-        '17.3',
-        '17.4',
-        '18.1',
-        '18.2',
-        '18.3',
-        '18.4',
-        '19.1',
-        '19.2',
-        '19.3',
-        '19.4',
-        '20.1',
-        '20.2',
-        '20.3',
-        '20.4',
-        '21.1',
-        '21.2',
-        '21.3',
-        '21.4',
-        '22.1',
-        '22.2',
-        '22.3',
-        '22.4',
-        '23.1',
-        '23.2',
-        '23.3',
-        '23.4'
+        '00:00',
+        '00:15',
+        '00:30',
+        '00:45',
+        '01:00',
+        '01:15',
+        '01:30',
+        '01:45',
+        '02:00',
+        '02:15',
+        '02:30',
+        '02:45',
+        '03:00',
+        '03:15',
+        '03:30',
+        '03:45',
+        '04:00',
+        '04:15',
+        '04:30',
+        '04:45',
+        '05:00',
+        '05:15',
+        '05:30',
+        '05:45',
+        '06:00',
+        '06:15',
+        '06:30',
+        '06:45',
+        '07:00',
+        '07:15',
+        '07:30',
+        '07:45',
+        '08:00',
+        '08:15',
+        '08:30',
+        '08:45',
+        '09:00',
+        '09:15',
+        '09:30',
+        '09:45',
+        '10:00',
+        '10:15',
+        '10:30',
+        '10:45',
+        '11:00',
+        '11:15',
+        '11:30',
+        '11:45',
+        '12:00',
+        '12:15',
+        '12:30',
+        '12:45',
+        '13:00',
+        '13:15',
+        '13:30',
+        '13:45',
+        '14:00',
+        '14:15',
+        '14:30',
+        '14:45',
+        '15:00',
+        '15:15',
+        '15:30',
+        '15:45',
+        '16:00',
+        '16:15',
+        '16:30',
+        '16:45',
+        '17:00',
+        '17:15',
+        '17:30',
+        '17:45',
+        '18:00',
+        '18:15',
+        '18:30',
+        '18:45',
+        '19:00',
+        '19:15',
+        '19:30',
+        '19:45',
+        '20:00',
+        '20:15',
+        '20:30',
+        '20:45',
+        '21:00',
+        '21:15',
+        '21:30',
+        '21:45',
+        '22:00',
+        '22:15',
+        '22:30',
+        '22:45',
+        '23:00',
+        '23:15',
+        '23:30',
+        '23:45',
       ]
     }
 
-    get dataEreignis() {
+    get dataHeatmap() {
       return [
         [0,0,24],	[0,1,4],	[0,2,2],	[0,3,30],
         [1,0,39],	[1,1,11],	[1,2,6],	[1,3,56],
@@ -251,10 +341,93 @@
       ]
     }
 
-    get isFileSelected() {
-      return this.fileData.length > 0;
+    // Datatable
+    get headersDatatable() {
+      return [
+        {text: "Zeitintervall", value: "zeitintervall", width: "19%", divider: true, sortable: false},
+        {text: "PKW", value: "pkw", width: "9%", divider: true, sortable: false},
+        {text: "LKW", value: "lkw", width: "9%", divider: true, sortable: false},
+        {text: "LZ", value: "lz", width: "9%", divider: true, sortable: false},
+        {text: "BUS", value: "bus", width: "9%", divider: true, sortable: false},
+        {text: "Krd", value: "krd", width: "9%", divider: true, sortable: false},
+        {text: "Rad", value: "rad", width: "9%", divider: true, sortable: false},
+        {text: "Fuß", value: "fus", width: "9%", divider: true, sortable: false},
+        {text: "KFZ", value: "kfz", width: "9%", divider: true, sortable: false},
+        {text: "SV", value: "sv", width: "9%", divider: true, sortable: false},
+        {text: "GV", value: "gv", width: "9%", divider: true, sortable: false},
+      ];
     }
 
+    get itemsDatatable() {
+
+      let dataArray = [];
+      for (let index: number = 0; index < 96; index++) {
+        let data: ZeitintervallObject = {} as ZeitintervallObject;
+        data.zeitintervall = this.getZeitintervall(index);
+        data.pkw = this.getRndInteger(10, 100);
+        data.lkw = this.getRndInteger(0, 15);
+        data.lz = this.getRndInteger(0, 20);
+        data.bus = this.getRndInteger(2, 30);
+        data.krd = this.getRndInteger(0, 50);
+        data.rad = this.getRndInteger(0, 40);
+        data.fus = this.getRndInteger(0, 20);
+        // Summen aus den oberen Teilen
+        data.gv = data.pkw + data.krd + data.lkw + data.lz;
+        data.sv = data.gv + data.bus;
+        data.kfz = data.sv + data.rad + data.fus;
+        dataArray.push(data);
+
+        // Stundensatz anlegen
+        // if (index % 4 === 3) {
+        //   let dataHour: ZeitintervallObject = {} as ZeitintervallObject;
+        //   let element0 = dataArray[dataArray.length - 4];
+        //   let element1 = dataArray[dataArray.length - 3];
+        //   let element2 = dataArray[dataArray.length - 2];
+        //   let element3 = dataArray[dataArray.length - 1];
+        //   dataHour.zeitintervall = `${element0.zeitintervall.split('-')[0]}-${element3.zeitintervall.split('-')[1]} STD`;
+        //   dataHour.pkw = element0.pkw + element1.pkw + element2.pkw + element3.pkw;
+        //   dataHour.lkw = element0.lkw + element1.lkw + element2.lkw + element3.lkw;
+        //   dataHour.lz = element0.lz + element1.lz + element2.lz + element3.lz;
+        //   dataHour.bus = element0.bus + element1.bus + element2.bus + element3.bus;
+        //   dataHour.krd = element0.krd + element1.krd + element2.krd + element3.krd;
+        //   dataHour.rad = element0.rad + element1.rad + element2.rad + element3.rad;
+        //   dataHour.fus = element0.fus + element1.fus + element2.fus + element3.fus;
+        //   dataHour.gv = element0.gv + element1.gv + element2.gv + element3.gv;
+        //   dataHour.sv = element0.sv + element1.sv + element2.sv + element3.sv;
+        //   dataHour.kfz = element0.kfz + element1.kfz + element2.kfz + element3.kfz;
+        //   dataArray.push(dataHour);
+        // }
+      }
+      return dataArray;
+    }
+
+    private getRndInteger(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    private getZeitintervall(index: number) {
+      // let hourAsString = `${Math.floor(index/4)}`
+      // if(hourAsString.length < 2) {
+      //   hourAsString = `0${hourAsString}`;
+      // }
+      // let nextHourAsString = `${Math.floor((index+1)/4)}`
+      // if(nextHourAsString.length < 2) {
+      //   nextHourAsString = `0${nextHourAsString}`;
+      // }
+      return `${this.getHours(index)}:${this.getMinutes(index)} - ${this.getHours(index + 1)}:${this.getMinutes(index + 1)}`
+    }
+
+    private getHours(index: number) {
+      let hourAsString = `${Math.floor(index / 4)}`
+      return hourAsString.length < 2 ? `0${hourAsString}` : hourAsString;
+    }
+
+    private getMinutes(index: number) {
+      let minuteAsString = `${(index % 4) * 15}`;
+      return minuteAsString.length < 2 ? `0${minuteAsString}` : minuteAsString;
+    }
+
+    // File Chooser
     private onFileSelect(selectedFile:any) {
       let that = this;
       const fileReader = new FileReader();

@@ -13,10 +13,7 @@
           <v-icon right>mdi-arrow-right-bold</v-icon>
         </v-btn>
       </v-card-actions>
-      <v-stepper-step :complete="stepper > 0" step="0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 0">Allgemeine Informationen</div>
-        <div v-else>Allgemeine Informationen</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 0" step="0">Allgemeine Informationen</v-stepper-step>
       <v-stepper-content step="0">
         <v-card flat>
           <v-form ref="form" v-model="validZaehlstelle">
@@ -28,6 +25,15 @@
                     outlined
                     dense
                     value="123456"
+                    disabled
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" md="3">
+                <v-text-field
+                    label="Zähldatum"
+                    outlined
+                    dense
+                    value="20.06.2020"
                     disabled
                 ></v-text-field>
               </v-col>
@@ -96,12 +102,9 @@
           </v-form>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step :complete="stepper > 1" step="1" @click="window=0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 1">Fahrbeziehungen Straße 1</div>
-        <div v-else>Fahrbeziehungen Straße 1</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 1" step="1" @click="window=0">Fahrbeziehungen Straße 1</v-stepper-step>
       <v-stepper-content step="1">
-        <v-card>
+        <v-card flat>
           <v-window
               v-model="window"
               class="elevation-1"
@@ -153,12 +156,9 @@
           </v-card-actions>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step :complete="stepper > 2" step="2" @click="window=0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 2">Fahrbeziehungen Straße 2</div>
-        <div v-else>Fahrbeziehungen Straße 2</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 2" step="2" @click="window=0">Fahrbeziehungen Straße 2</v-stepper-step>
       <v-stepper-content step="2">
-        <v-card>
+        <v-card flat>
           <v-window
               v-model="window"
               class="elevation-1"
@@ -210,12 +210,9 @@
           </v-card-actions>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step :complete="stepper > 3" step="3" @click="window=0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 3">Fahrbeziehungen Straße 3</div>
-        <div v-else>Fahrbeziehungen Straße 3</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 3" step="3" @click="window=0">Fahrbeziehungen Straße 3</v-stepper-step>
       <v-stepper-content step="3">
-        <v-card>
+        <v-card flat>
           <v-window
               v-model="window"
               class="elevation-1"
@@ -267,12 +264,9 @@
           </v-card-actions>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step :complete="stepper > 4" step="4" @click="window=0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 4">Fahrbeziehungen Straße 4</div>
-        <div v-else>Fahrbeziehungen Straße 4</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 4" step="4" @click="window=0">Fahrbeziehungen Straße 4</v-stepper-step>
       <v-stepper-content step="4">
-        <v-card>
+        <v-card flat>
           <v-window
               v-model="window"
               class="elevation-1"
@@ -324,12 +318,9 @@
           </v-card-actions>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step :complete="stepper > 5" step="5" @click="window=0">
-        <div class="title" style="font-weight: bold" v-if="stepper === 5">Fahrbeziehungen Straße 6</div>
-        <div v-else>Fahrbeziehungen Straße 6</div>
-      </v-stepper-step>
+      <v-stepper-step editable :complete="stepper > 5" step="5" @click="window=0">Fahrbeziehungen Straße 6</v-stepper-step>
       <v-stepper-content step="5">
-        <v-card>
+        <v-card flat>
           <v-window
               v-model="window"
               class="elevation-1"
@@ -381,17 +372,11 @@
           </v-card-actions>
         </v-card>
       </v-stepper-content>
-      <v-stepper-step step="6">
-        <div class="title" style="font-weight: bold" v-if="stepper === 6">Zusammenfassung</div>
-        <div v-else>Zusammenfassung</div>
-      </v-stepper-step>
+      <v-stepper-step editable step="6">Zusammenfassung</v-stepper-step>
       <v-stepper-content step="6">
-        <v-card
-            class="mb-12"
-            color="grey lighten-1"
-            height="200px"
-        >
-          Zusammenfassung der eingegebenen Daten
+        <v-card flat>
+          Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
         </v-card>
         <v-card-actions>
           <v-spacer/>
@@ -442,6 +427,10 @@
     private stadtbezirke: KeyValStadtbezirk[] = [];
 
     fileData: string[] = [];
+
+    get test() {
+      return this.stepper === 0;
+    }
 
     mounted() {
       window.scrollTo(0, 0);
