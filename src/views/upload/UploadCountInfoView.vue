@@ -1,5 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pa-0">
+    <zaehlstelle-header
+      counter-id="1"
+    ></zaehlstelle-header>
+    <v-container fluid>
     <v-alert
       v-if="isError"
       outlined
@@ -14,12 +18,19 @@
       <li>Info zur Kontaktperson</li>
       <li>...</li>
     </ul>
+    </v-container>
   </v-container>
 </template>
 <script lang="ts">
 import {Component, Vue} from 'vue-property-decorator'
 
-@Component
+import ZaehlstelleHeader from "@/components/zaehlstelle/ZaehlstelleHeader.vue"
+
+@Component({
+    components: {
+        ZaehlstelleHeader
+    }
+})
 export default class UploadCountInfoView extends Vue {
   
   get isError () {
