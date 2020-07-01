@@ -1,39 +1,41 @@
 <template>
     <div>
-    <v-file-input outlined dense prepend-inner-icon="$file" prepend-icon="" accept=".csv" label="File input" @change="onFileSelect" />
+      <v-file-input outlined dense prepend-inner-icon="$file" prepend-icon="" accept=".csv" label="File input" @change="onFileSelect" />
 
-    <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="350" v-if="isFileSelected">
-      <v-chart
-          :options="optionsHeatmap"
-          autoresize/>
-    </v-sheet>
+      <div v-if="isFileSelected">
+        <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="350">
+          <v-chart
+              :options="optionsHeatmap"
+              autoresize/>
+        </v-sheet>
 
-    <v-data-table v-if="isFileSelected"
-        :headers="headersDatatable"
-        :items="itemsDatatable"
-        dense
-        fixed-header
-        loading-text="Lade Daten....."
-        :items-per-page="4"
-        :footer-props="{
-          disableItemsPerPage: true,
-          showFirstLastPage: true,
-          showCurrentPage: true,
-          itemsPerPageOptions: [4, 8, 16],
-        }"
-    >
-      <template v-slot:no-data>
-        ⚠ Keine Ergebnisse gefunden.
-      </template>
-    </v-data-table>
+        <v-data-table
+            :headers="headersDatatable"
+            :items="itemsDatatable"
+            dense
+            fixed-header
+            loading-text="Lade Daten....."
+            :items-per-page="4"
+            :footer-props="{
+              disableItemsPerPage: true,
+              showFirstLastPage: true,
+              showCurrentPage: true,
+              itemsPerPageOptions: [4, 8, 16],
+            }"
+        >
+          <template v-slot:no-data>
+            ⚠ Keine Daten vorhanden.
+          </template>
+        </v-data-table>
 
-    <v-textarea
-        label="Kommentar"
-        outlined
-        dense
-        counter="1000"
-        maxlength="1000"
-    ></v-textarea>
+        <v-textarea
+            label="Kommentar"
+            outlined
+            dense
+            counter="1000"
+            maxlength="1000"
+        ></v-textarea>
+      </div>
     </div>
 </template>
 
@@ -68,8 +70,8 @@
     }
 
     get isFileSelected() {
-      return true;
-      // return this.fileData.length > 0;
+      // return true;
+      return this.fileData.length > 0;
     }
 
     // Heatmap
@@ -132,11 +134,13 @@
     }
 
     get color() {
+      // return ['#FFFFFF', '#E1F5A9', '#F3F781', '#F7D358', '#FE9A2E', '#FF4000', '#DF0101']
       return this.rangeMin < 0 ? ['#4575b4', '#d88273', '#bf444c'] : ['#f6efa6', '#d88273', '#bf444c']
     }
 
     get categories() {
-      return ['Gesamt','SV','GV','KFZ']
+      // return ['Gesamt','SV','GV','KFZ']
+      return ['GV','SV','KFZ']
     }
 
     get hours() {
@@ -241,6 +245,24 @@
     }
 
     get dataHeatmap() {
+      let dataArray:any[] = [];
+      if(this.fileData.length === 0) {
+        return dataArray;
+      }
+      for (let index: number = 1; index < 97; index++) {
+        let line = this.fileData[index].split(';');
+        // Summen aus den oberen Teilen
+        let gv = Number.parseInt(line[3]) + Number.parseInt(line[4]);
+        let sv = gv + Number.parseInt(line[5]);
+        let kfz = sv + Number.parseInt(line[2]) + Number.parseInt(line[6]) + Number.parseInt(line[7]) + Number.parseInt(line[8]);
+        dataArray.push([index-1,2,kfz]);
+        dataArray.push([index-1,1,sv]);
+        dataArray.push([index-1,0,gv]);
+      }
+      return dataArray
+    }
+
+    get dataHeatmap2() {
       return [
         [0,0,24],	[0,1,4],	[0,2,2],	[0,3,30],
         [1,0,39],	[1,1,11],	[1,2,6],	[1,3,56],
@@ -360,6 +382,32 @@
 
     get itemsDatatable() {
 
+      let dataArray:any[] = [];
+      if(this.fileData.length === 0) {
+        return dataArray;
+      }
+      for (let index: number = 1; index < 97; index++) {
+        let data: ZeitintervallObject = {} as ZeitintervallObject;
+        let line = this.fileData[index].split(';');
+        data.zeitintervall = `${line[0]} - ${line[1]}`;
+        data.pkw = Number.parseInt(line[2]);
+        data.lkw = Number.parseInt(line[3]);
+        data.lz = Number.parseInt(line[4]);
+        data.bus = Number.parseInt(line[5]);
+        data.krd = Number.parseInt(line[6]);
+        data.rad = Number.parseInt(line[7]);
+        data.fus = Number.parseInt(line[8]);
+        // Summen aus den oberen Teilen
+        data.gv = data.lkw + data.lz;
+        data.sv = data.gv + data.bus;
+        data.kfz = data.sv + data.rad + data.fus + data.pkw + data.krd;
+        dataArray.push(data);
+      }
+      return dataArray;
+    }
+
+    get itemsDatatable2() {
+
       let dataArray = [];
       for (let index: number = 0; index < 96; index++) {
         let data: ZeitintervallObject = {} as ZeitintervallObject;
@@ -376,27 +424,6 @@
         data.sv = data.gv + data.bus;
         data.kfz = data.sv + data.rad + data.fus;
         dataArray.push(data);
-
-        // Stundensatz anlegen
-        // if (index % 4 === 3) {
-        //   let dataHour: ZeitintervallObject = {} as ZeitintervallObject;
-        //   let element0 = dataArray[dataArray.length - 4];
-        //   let element1 = dataArray[dataArray.length - 3];
-        //   let element2 = dataArray[dataArray.length - 2];
-        //   let element3 = dataArray[dataArray.length - 1];
-        //   dataHour.zeitintervall = `${element0.zeitintervall.split('-')[0]}-${element3.zeitintervall.split('-')[1]} STD`;
-        //   dataHour.pkw = element0.pkw + element1.pkw + element2.pkw + element3.pkw;
-        //   dataHour.lkw = element0.lkw + element1.lkw + element2.lkw + element3.lkw;
-        //   dataHour.lz = element0.lz + element1.lz + element2.lz + element3.lz;
-        //   dataHour.bus = element0.bus + element1.bus + element2.bus + element3.bus;
-        //   dataHour.krd = element0.krd + element1.krd + element2.krd + element3.krd;
-        //   dataHour.rad = element0.rad + element1.rad + element2.rad + element3.rad;
-        //   dataHour.fus = element0.fus + element1.fus + element2.fus + element3.fus;
-        //   dataHour.gv = element0.gv + element1.gv + element2.gv + element3.gv;
-        //   dataHour.sv = element0.sv + element1.sv + element2.sv + element3.sv;
-        //   dataHour.kfz = element0.kfz + element1.kfz + element2.kfz + element3.kfz;
-        //   dataArray.push(dataHour);
-        // }
       }
       return dataArray;
     }
@@ -435,7 +462,6 @@
       // Eventlistener für das 'load'-Event
       fileReader.addEventListener("load", function () {
         that.fileData = (fileReader.result as string).split(/\r\n|\n/);
-        console.log(that.fileData);
       }, false);
 
       if (selectedFile) {
