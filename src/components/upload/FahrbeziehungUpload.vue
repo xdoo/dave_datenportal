@@ -2,14 +2,13 @@
     <div>
       <v-file-input outlined dense prepend-inner-icon="$file" prepend-icon="" accept=".csv" label="File input" @change="onFileSelect" />
 
-      <div v-if="isFileSelected">
-        <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="350">
+        <v-sheet :height="$vuetify.breakpoint.height * 0.8" max-height="350" v-if="isFileSelected">
           <v-chart
               :options="optionsHeatmap"
               autoresize/>
         </v-sheet>
 
-        <v-data-table
+        <v-data-table v-if="isFileSelected"
             :headers="headersDatatable"
             :items="itemsDatatable"
             dense
@@ -35,7 +34,6 @@
             counter="1000"
             maxlength="1000"
         ></v-textarea>
-      </div>
     </div>
 </template>
 
