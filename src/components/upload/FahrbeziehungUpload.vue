@@ -241,7 +241,7 @@
       ]
     }
 
-    get dataHeatmap2() {
+    get dataHeatmap() {
       let dataArray:any[] = [];
       if(this.fileData.length === 0) {
         return dataArray;
@@ -259,7 +259,7 @@
       return dataArray
     }
 
-    get dataHeatmap() {
+    get dataHeatmap2() {
       return [
         [0,0,24],	[0,1,4],	[0,2,2],
         [1,0,39],	[1,1,11],	[1,2,6],
@@ -377,7 +377,7 @@
       ];
     }
 
-    get itemsDatatable2() {
+    get itemsDatatable() {
 
       let dataArray:any[] = [];
       if(this.fileData.length === 0) {
@@ -403,7 +403,7 @@
       return dataArray;
     }
 
-    get itemsDatatable() {
+    get itemsDatatable2() {
 
       let dataArray = [];
       for (let index: number = 0; index < 96; index++) {
