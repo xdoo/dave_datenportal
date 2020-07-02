@@ -2,18 +2,18 @@
   <v-container fluid>
 
     <v-stepper v-model="stepper" vertical>
-      <v-card-actions>
-        <v-btn @click="stepper--" :disabled="stepper < 1">
-          zurück
-          <v-icon left>mdi-arrow-left-bold</v-icon>
-        </v-btn>
-        <v-spacer/>
-        <v-btn @click="stepper++" :disabled="stepper > 5">
-          weiter
-          <v-icon right>mdi-arrow-right-bold</v-icon>
-        </v-btn>
-      </v-card-actions>
-      <v-stepper-step editable :complete="stepper > 0" step="0">Allgemeine Informationen</v-stepper-step>
+<!--      <v-card-actions>-->
+<!--        <v-btn @click="stepper&#45;&#45;" :disabled="stepper < 1">-->
+<!--          zurück-->
+<!--          <v-icon left>mdi-arrow-left-bold</v-icon>-->
+<!--        </v-btn>-->
+<!--        <v-spacer/>-->
+<!--        <v-btn @click="stepper++" :disabled="stepper > 5">-->
+<!--          weiter-->
+<!--          <v-icon right>mdi-arrow-right-bold</v-icon>-->
+<!--        </v-btn>-->
+<!--      </v-card-actions>-->
+      <v-stepper-step id="step0" editable :complete="stepper > 0" step="0">Allgemeine Informationen</v-stepper-step>
       <v-stepper-content step="0">
         <v-card flat>
           <v-form ref="form" v-model="validZaehlstelle">
@@ -376,37 +376,31 @@
       <v-stepper-content step="6">
         <v-card flat>
           Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-
         </v-card>
         <v-card-actions>
           <v-spacer/>
-          <v-btn
-              color="primary"
-          >
+          <v-btn color="primary">
             Speichern
           </v-btn>
         </v-card-actions>
-
-
       </v-stepper-content>
-
-      <v-card-actions>
-        <v-btn @click="stepper--" :disabled="stepper < 1">
-          zurück
-          <v-icon left>mdi-arrow-left-bold</v-icon>
-        </v-btn>
-        <v-spacer/>
-        <v-btn @click="stepper++" :disabled="stepper > 5">
-          weiter
-          <v-icon right>mdi-arrow-right-bold</v-icon>
-        </v-btn>
-      </v-card-actions>
+<!--      <v-card-actions>-->
+<!--        <v-btn @click="stepper&#45;&#45;" :disabled="stepper < 1">-->
+<!--          zurück-->
+<!--          <v-icon left>mdi-arrow-left-bold</v-icon>-->
+<!--        </v-btn>-->
+<!--        <v-spacer/>-->
+<!--        <v-btn @click="stepper++" :disabled="stepper > 5">-->
+<!--          weiter-->
+<!--          <v-icon right>mdi-arrow-right-bold</v-icon>-->
+<!--        </v-btn>-->
+<!--      </v-card-actions>-->
 
     </v-stepper>
   </v-container>
 </template>
 <script lang="ts">
-  import {Component, Vue} from 'vue-property-decorator'
+  import {Component,  Vue} from 'vue-property-decorator'
   import {Levels} from "@/api/error";
   import {StadtbezirkToBeschreibung} from "@/types/zaehlstelle/Stadtbezirk";
   import FahrbeziehungUpload from "@/components/upload/FahrbeziehungUpload.vue";
@@ -420,17 +414,13 @@
     components: {FahrbeziehungUpload}
   })
   export default class UploadCountView extends Vue {
-    private valid = false;
     private validZaehlstelle = false;
-    private stepper: number = 0;
+    private stepper: number = -1;
     private window: number = 0;
     private stadtbezirke: KeyValStadtbezirk[] = [];
 
     fileData: string[] = [];
 
-    get test() {
-      return this.stepper === 0;
-    }
 
     mounted() {
       window.scrollTo(0, 0);
@@ -441,6 +431,12 @@
           value: key
         })
       });
+
+      // Workaraound für autoresize vom Stepper beim dynamischen hinzufügen von neuem Content
+      const element = document.getElementById("step0");
+      if (element) {
+        element.click();
+      }
     }
 
     get wetter() {
@@ -472,11 +468,11 @@
           sortable: false,
           value: 'winkel'
         },
-        {
-          text: 'Actions',
-          sortable: false,
-          value: 'actions'
-        },
+        // {
+        //   text: 'Actions',
+        //   sortable: false,
+        //   value: 'actions'
+        // },
       ];
     }
 
